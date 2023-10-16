@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+<h2>Authentication with Identity</h2>
+<hr />
+@if (User.Identity.IsAuthenticated)
+{
+  <p>Hello @User.Identity.Name!</p>
+}
+else 
+{
+  <p>@Html.ActionLink("Go to Register Page", "Register")</p>
+  <p>@Html.ActionLink("Log yourself in and stop questioning me", "Login")</p>
+}
+
+<p>@Html.ActionLink("Go To Main Page", "Index", "Home")</p>

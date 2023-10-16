@@ -10,11 +10,11 @@ namespace RecipeBox.Controllers
   public class RecipesController : Controller
   {
     private readonly RecipeBoxContext _db;
-    public RecipesController(RecipesBoxContext db)
+    public RecipesController(RecipeBoxContext db)
     {
       _db = db;
     }
-    
+
     public ActionResult Index()
     {
       List<Recipe> model = _db.Recipes.ToList(); 
