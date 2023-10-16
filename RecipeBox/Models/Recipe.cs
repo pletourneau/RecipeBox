@@ -17,5 +17,6 @@ namespace RecipeBox.Models
     public Category Category { get; set; }
 
     public List <CategoryRecipe> JoinEntities { get; set; }
+    public ApplicationUser User { get; set; }
   }
 }
