@@ -3,10 +3,18 @@ body {
   /* background-color: #800080; */
   /* medium gray */
   /* background-color: #7f7f7f; */
-  background-color: #186f65;
-  color: #fce09b;
+  background-color: #025464;
+  color: #eedd82;
+}
+
+p {
+  color: #faf9f6;
 }
 
 a {
   color: #b2533e;
+}
+
+a:hover {
+  color: #d6cc99;
 }

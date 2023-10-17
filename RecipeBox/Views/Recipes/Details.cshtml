@@ -11,8 +11,10 @@
 <p><strong>@Html.DisplayNameFor(chosenRecipe => chosenRecipe.Ingredients)</strong>: @Html.DisplayFor(chosenRecipe => chosenRecipe.Ingredients)</p> 
 <p><strong>@Html.DisplayNameFor(chosenRecipe => chosenRecipe.Instructions)</strong>: @Html.DisplayFor(chosenRecipe => chosenRecipe.Instructions)</p> 
 <p><strong>@Html.DisplayNameFor(chosenRecipe => chosenRecipe.Rating)</strong>: @Html.DisplayFor(chosenRecipe => chosenRecipe.Rating)</p> 
+
+</h3>
 <hr/>
 
 <p>@Html.ActionLink("Edit Details", "Edit", new { id = Model.RecipeId })</p>
 <p>@Html.ActionLink("Delete Recipe", "Delete", new { id = Model.RecipeId })</p>
-<p>@Html.ActionLink("Back to Recipes List", "Index")</p>
+

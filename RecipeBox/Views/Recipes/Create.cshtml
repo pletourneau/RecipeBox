@@ -3,6 +3,7 @@
 }
 
 <h1>Add a new receta guey<h1>
+<hr/>
 
 @model RecipeBox.Models.Recipe;
 @using System;
@@ -19,15 +20,22 @@
     <h4>@Html.LabelFor(model => model.Instructions)</h4>
     @Html.TextBoxFor(model => model.Instructions)
     <br/>
-    <h4>@Html.LabelFor(model => model.Rating)</h4>
-    @Html.TextBoxFor(model => model.Rating)
-    <br/>
+  
+    <h4>Recipe Rating</h4>
+    @Html.RadioButtonFor(model => model.Rating, 1)<b> 1</b>
+    @Html.RadioButtonFor(model => model.Rating, 2)<b> 2</b>
+    @Html.RadioButtonFor(model => model.Rating, 3)<b> 3</b>
+    @Html.RadioButtonFor(model => model.Rating, 4)<b> 4</b>
+    @Html.RadioButtonFor(model => model.Rating, 5)<b> 5</b>
+    <br />
+    
     <input type="submit" value="Submit" class="btn btn-primary"/>
   }
 </div>
-
+<hr />
 <br/>
 <div class="container">
+<h3>Links</h3>
   <h5>@Html.ActionLink("Back to Recipes", "Index")</h5>
 </div>
 
