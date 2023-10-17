@@ -35,5 +35,44 @@ namespace RecipeBox.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult Details(int id)
+    {
+      ViewBag.PageTitle = "Category Details";
+      Category targetCategory = _db.Categories.FirstOrDefault(entry => entry.CategoryId == id);
+      return View(targetCategory);
+    }
+
+    public ActionResult Edit(int id)
+    {
+      ViewBag.PageTitle = "Edit Category";
+      Category targetCategory = _db.Categories.FirstOrDefault(entry => entry.CategoryId == id); 
+      return View(targetCategory);     
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Category categoryToEdit)
+    {
+      _db.Categories.Update(categoryToEdit);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = categoryToEdit.CategoryId });
+    }
+
+    public ActionResult Delete(int id)
+    {
+      ViewBag.PageTitle = "Delete Category";
+      Category targetCategory = _db.Categories.FirstOrDefault(entry => entry.CategoryId == id);
+      return View(targetCategory);            
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      Category targetCategory = _db.Categories.FirstOrDefault(entry => entry.CategoryId == id);
+      _db.Categories.Remove(targetCategory);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
   }
 }

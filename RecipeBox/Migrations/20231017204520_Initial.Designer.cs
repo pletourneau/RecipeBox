@@ -11,8 +11,8 @@ using RecipeBox.Models;
 namespace RecipeBox.Migrations
 {
     [DbContext(typeof(RecipeBoxContext))]
-    [Migration("20231016221527_AddUserToRecipe")]
-    partial class AddUserToRecipe
+    [Migration("20231017204520_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -254,17 +254,14 @@ namespace RecipeBox.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Ingredients")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Instructions")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Rating")
-                        .HasColumnType("longtext");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("longtext");
@@ -273,8 +270,6 @@ namespace RecipeBox.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("RecipeId");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
 
@@ -353,17 +348,9 @@ namespace RecipeBox.Migrations
 
             modelBuilder.Entity("RecipeBox.Models.Recipe", b =>
                 {
-                    b.HasOne("RecipeBox.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RecipeBox.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Category");
 
                     b.Navigation("User");
                 });

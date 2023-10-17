@@ -16,7 +16,7 @@ namespace RecipeBox.Models
     // public int CategoryId { get; set; }
     // public Category Category { get; set; }
 
-    // public List <CategoryRecipe> JoinEntities { get; set; }
+    public List <CategoryRecipe> JoinEntities { get; set; }
     public ApplicationUser User { get; set; }
   }
 }

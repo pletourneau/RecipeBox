@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBox.Models.Category
+
+<p>Edit the information below and click Save to submit changes.</p>
+<hr/>
+@using(Html.BeginForm())
+{
+  <p>@Html.DisplayNameFor(entry => entry.Name): @Html.EditorFor(entry => entry.Name) <input type="submit" value="Save Edits"/></p>
+}
+<hr/>
+<p>@Html.ActionLink("Back to Category Details", "Details", new { id = Model.CategoryId })</p>

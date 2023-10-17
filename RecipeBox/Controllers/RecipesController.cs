@@ -115,6 +115,27 @@ namespace RecipeBox.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AddCategory(int id)
+    {
+      Recipe thisRecipe = _db.Recipes.FirstOrDefault(model => model.RecipeId == id);
+      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
+      return View(thisRecipe);
+    }
+
+    [HttpPost]
+    public ActionResult AddCategory(Recipe recipe, int categoryId)
+    {
+      #nullable enable
+      CategoryRecipe? joinEntity = _db.CategoryRecipes.FirstOrDefault(join =>(join.CategoryId == categoryId && join.RecipeId == recipe.RecipeId));
+      #nullable disable
+      if (joinEntity == null && categoryId != 0)
+      {
+        _db.CategoryRecipes.Add(new CategoryRecipe() {RecipeId = recipe.RecipeId, CategoryId = categoryId});
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new {id = recipe.RecipeId});
+    }
   }
 
 }

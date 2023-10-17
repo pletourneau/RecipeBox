@@ -1,0 +1,11 @@
+@{
+  Layout = "_Layout";
+}
+
+@using RecipeBox.Models
+@model RecipeBox.Models.Category
+
+<p><strong>@Html.DisplayNameFor(targetCategory => targetCategory.Name)</strong>: @Html.DisplayFor(targetCategory => targetCategory.Name)</p>
+
+<p>@Html.ActionLink("Edit Category", "Edit", new { id = Model.CategoryId })</p>
+<p>@Html.ActionLink("Delete Category", "Delete", new { id = Model.CategoryId })</p>

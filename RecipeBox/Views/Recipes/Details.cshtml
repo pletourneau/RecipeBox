@@ -5,8 +5,6 @@
 @using RecipeBox.Models
 @model RecipeBox.Models.Recipe
 
-<h4>Recipe Details</h4>
-
 <p><strong>@Html.DisplayNameFor(chosenRecipe => chosenRecipe.Title)</strong>: @Html.DisplayFor(chosenRecipe => chosenRecipe.Title)</p> 
 <p><strong>@Html.DisplayNameFor(chosenRecipe => chosenRecipe.Ingredients)</strong>: @Html.DisplayFor(chosenRecipe => chosenRecipe.Ingredients)</p> 
 <p><strong>@Html.DisplayNameFor(chosenRecipe => chosenRecipe.Instructions)</strong>: @Html.DisplayFor(chosenRecipe => chosenRecipe.Instructions)</p> 
@@ -14,7 +12,7 @@
 
 </h3>
 <hr/>
-
+<p>@Html.ActionLink("Add Category to Recipe", "AddCategory", new { id = Model.RecipeId })</p>
 <p>@Html.ActionLink("Edit Details", "Edit", new { id = Model.RecipeId })</p>
 <p>@Html.ActionLink("Delete Recipe", "Delete", new { id = Model.RecipeId })</p>
 

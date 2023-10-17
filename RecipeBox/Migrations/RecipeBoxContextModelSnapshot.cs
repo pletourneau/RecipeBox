@@ -334,7 +334,7 @@ namespace RecipeBox.Migrations
                         .IsRequired();
 
                     b.HasOne("RecipeBox.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("JoinEntities")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -354,6 +354,11 @@ namespace RecipeBox.Migrations
                 });
 
             modelBuilder.Entity("RecipeBox.Models.Category", b =>
+                {
+                    b.Navigation("JoinEntities");
+                });
+
+            modelBuilder.Entity("RecipeBox.Models.Recipe", b =>
                 {
                     b.Navigation("JoinEntities");
                 });
