@@ -25,6 +25,7 @@ namespace RecipeBox.Controllers
 
     public ActionResult Index()
     { 
+      ViewBag.PageTitle = "List of Recipes";
       List<Recipe> model = _db.Recipes.ToList();
       return View(model);
     }
@@ -61,6 +62,7 @@ namespace RecipeBox.Controllers
     // }
     public ActionResult Create()
     {
+      ViewBag.PageTitle = "Add Recipe";
       return View();
     }
 
@@ -78,12 +80,14 @@ namespace RecipeBox.Controllers
 
     public ActionResult Details(int id)
     {
+      ViewBag.PageTitle = "Recipe Details";
       Recipe targetRecipe = _db.Recipes.FirstOrDefault(entry => entry.RecipeId == id);
       return View(targetRecipe);
     }
 
     public ActionResult Edit(int id)
     {
+      ViewBag.PageTitle = "Edit Recipe";
       Recipe thisRecipe = _db.Recipes.FirstOrDefault(recipe => recipe.RecipeId == id);
       return View(thisRecipe);
     }
@@ -98,6 +102,7 @@ namespace RecipeBox.Controllers
 
     public ActionResult Delete(int id)
     {
+      ViewBag.PageTitle = "Delete Recipe";
       Recipe targetRecipe = _db.Recipes.FirstOrDefault(entry => entry.RecipeId == id);
       return View(targetRecipe);
     }

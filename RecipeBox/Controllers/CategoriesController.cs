@@ -18,7 +18,22 @@ namespace RecipeBox.Controllers
 
     public ActionResult Index()
     {
+      ViewBag.PageTitle = "List of Categories";
       return View(_db.Categories.ToList());
+    }
+
+    public ActionResult Create()
+    {
+      ViewBag.PageTitle = "Add a new category guey";
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Category category)
+    {
+      _db.Categories.Add(category);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
   }
 }

@@ -22,6 +22,7 @@ namespace RecipeBox.Controllers
     [HttpGet("/")]
     public async Task<ActionResult> Index()
     {
+      ViewBag.PageTitle = "Welcome to the Recipe Box!";
       Category[] cats = _db.Categories.ToArray();
       Dictionary<string,object[]> model = new Dictionary<string, object[]>();
       model.Add("categories", cats);

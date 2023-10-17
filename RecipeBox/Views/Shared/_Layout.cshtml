@@ -14,6 +14,8 @@
     <div class="container">
       @Html.ActionLink("Home", "Index", "Home") | @Html.ActionLink("Account / Login", "Index", "Account") | @Html.ActionLink("Manage Recipes", "Index", "Recipes") | @Html.ActionLink("Manage Categories", "Index", "Categories")
       <hr/>
+      <h1>@ViewBag.PageTitle</h1>
+      <hr/>
       @RenderBody()
     </div>
   </body>
