@@ -1,0 +1,34 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1> Add a new receta guey<h1>
+
+@model RecipeBox.Models.Recipe;
+@using System;
+
+<div class="container">
+  @using (Html.BeginForm())
+  {
+    <h4>@Html.LabelFor(model => model.Title)</h4>
+    @Html.TextBoxFor(model => model.Title)
+    <br/>
+    <h4>@Html.LabelFor(model => model.Ingredients)</h4>
+    @Html.TextBoxFor(model => model.Ingredients)
+    <br/>
+    <h4>@Html.LabelFor(model => model.Instructions)</h4>
+    @Html.TextBoxFor(model => model.Instructions)
+    <br/>
+    <h4>@Html.LabelFor(model => model.Rating)</h4>
+    @Html.TextBoxFor(model => model.Rating)
+    <br/>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  }
+</div>
+
+<br/>
+<div class="container">
+  <h5>@Html.ActionLink("Back to Recipes", "Index")</h5>
+</div>
+
+

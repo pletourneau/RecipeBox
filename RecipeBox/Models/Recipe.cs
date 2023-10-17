@@ -10,7 +10,7 @@ namespace RecipeBox.Models
     public string Title { get; set; }
     public string Ingredients{ get; set; }
     public string Instructions{ get; set; }
-    public string Rating { get; set; }
+    public int Rating { get; set; }
 
     // foreign key
     public int CategoryId { get; set; }

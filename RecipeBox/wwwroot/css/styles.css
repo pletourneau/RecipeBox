@@ -1,7 +1,12 @@
 body {
   /* eggplant purple */
-  background-color: #800080;
+  /* background-color: #800080; */
   /* medium gray */
-  /* background-color: #7f7f7f;   */
-  color: whitesmoke;
+  /* background-color: #7f7f7f; */
+  background-color: #186f65;
+  color: #fce09b;
+}
+
+a {
+  color: #b2533e;
 }
