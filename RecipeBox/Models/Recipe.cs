@@ -13,10 +13,10 @@ namespace RecipeBox.Models
     public int Rating { get; set; }
 
     // foreign key
-    public int CategoryId { get; set; }
-    public Category Category { get; set; }
+    // public int CategoryId { get; set; }
+    // public Category Category { get; set; }
 
-    public List <CategoryRecipe> JoinEntities { get; set; }
+    // public List <CategoryRecipe> JoinEntities { get; set; }
     public ApplicationUser User { get; set; }
   }
 }
