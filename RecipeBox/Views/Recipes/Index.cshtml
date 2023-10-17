@@ -13,12 +13,10 @@
 }
 else
 {
-  <ul>
-    @foreach(Recipe recipe in Model)
-    {
-      <li>@Html.ActionLink($"{recipe.Title}", "Details", new { id = recipe.RecipeId})</li>
-    }
-  </ul>
+  @foreach(Recipe recipe in Model)
+  {
+    <li>@Html.ActionLink($"{recipe.Title}", "Details", new { id = recipe.RecipeId})</li>
+  }
 }
 <hr/>
 @Html.ActionLink("Create Recipe", "Create")

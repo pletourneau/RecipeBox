@@ -10,6 +10,27 @@
 <p><strong>@Html.DisplayNameFor(chosenRecipe => chosenRecipe.Instructions)</strong>: @Html.DisplayFor(chosenRecipe => chosenRecipe.Instructions)</p> 
 <p><strong>@Html.DisplayNameFor(chosenRecipe => chosenRecipe.Rating)</strong>: @Html.DisplayFor(chosenRecipe => chosenRecipe.Rating)</p> 
 
+<h4>Categories Belonging to This Recipe</h4>
+<hr />
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This recipe does not have any categories associated with it.</p>
+}
+else
+{
+  <ul>
+    @foreach(CategoryRecipe joinEntry in Model.JoinEntities)
+    {
+      <li>@joinEntry.Category.Name</li>
+      @using(Html.BeginForm("DeleteJoin", "Recipes"))
+      {
+        @Html.Hidden("joinId", @joinEntry.CategoryRecipeId)
+        <input type="submit" value="Delete"/>
+      }
+    }
+  </ul>
+}
+
 </h3>
 <hr/>
 <p>@Html.ActionLink("Add Category to Recipe", "AddCategory", new { id = Model.RecipeId })</p>

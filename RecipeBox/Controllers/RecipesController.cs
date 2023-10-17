@@ -81,7 +81,9 @@ namespace RecipeBox.Controllers
     public ActionResult Details(int id)
     {
       ViewBag.PageTitle = "Recipe Details";
-      Recipe targetRecipe = _db.Recipes.FirstOrDefault(entry => entry.RecipeId == id);
+      Recipe targetRecipe = _db.Recipes.Include(entry => entry.JoinEntities)
+                                       .ThenInclude(join => join.Category)
+                                       .FirstOrDefault(entry => entry.RecipeId == id);
       return View(targetRecipe);
     }
 
@@ -135,6 +137,15 @@ namespace RecipeBox.Controllers
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new {id = recipe.RecipeId});
+    }
+
+    [HttpPost]
+    public ActionResult DeleteJoin(int joinId)
+    {
+      CategoryRecipe joinEntry = _db.CategoryRecipes.FirstOrDefault(entry => entry.CategoryRecipeId == joinId);
+      _db.CategoryRecipes.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.RecipeId });
     }
   }
 

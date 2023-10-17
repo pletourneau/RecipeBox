@@ -39,7 +39,9 @@ namespace RecipeBox.Controllers
     public ActionResult Details(int id)
     {
       ViewBag.PageTitle = "Category Details";
-      Category targetCategory = _db.Categories.FirstOrDefault(entry => entry.CategoryId == id);
+      Category targetCategory = _db.Categories.Include(entry => entry.JoinEntities)
+                                              .ThenInclude(join => join.Recipe)
+                                              .FirstOrDefault(entry => entry.CategoryId == id);
       return View(targetCategory);
     }
 
@@ -73,6 +75,36 @@ namespace RecipeBox.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    
+    public ActionResult AddRecipe(int id)
+    {
+      ViewBag.PageTitle = "Add Recipe to this Category";
+      Category thisCategory = _db.Categories.FirstOrDefault(model => model.CategoryId == id);
+      ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Title");
+      return View(thisCategory);
+    }
 
+    [HttpPost]
+    public ActionResult AddRecipe(Category category, int recipeId)
+    {
+      #nullable enable
+      CategoryRecipe? joinEntity = _db.CategoryRecipes.FirstOrDefault(join =>(join.RecipeId == recipeId && join.CategoryId == category.CategoryId));
+      #nullable disable
+      if (joinEntity == null && recipeId != 0)
+      {
+        _db.CategoryRecipes.Add(new CategoryRecipe() {RecipeId = recipeId, CategoryId = category.CategoryId});
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new {id = category.CategoryId});
+    }
+
+    [HttpPost]
+    public ActionResult DeleteJoin(int joinId)
+    {
+      CategoryRecipe joinEntry = _db.CategoryRecipes.FirstOrDefault(entry => entry.CategoryRecipeId == joinId);
+      _db.CategoryRecipes.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.CategoryId });
+    }
   }
 }
