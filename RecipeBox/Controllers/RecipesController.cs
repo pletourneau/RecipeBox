@@ -62,17 +62,17 @@ namespace RecipeBox.Controllers
     // }
     public ActionResult Create()
     {
-      ViewBag.PageTitle = "Add Recipe";
+      ViewBag.PageTitle = "Add a new receta guey";
       return View();
     }
 
     [HttpPost]
     public ActionResult Create(Recipe recipe)
     {
-      // if (!ModelState.IsValid)
-      // {
-      //   return View(recipe);
-      // }
+      if (!ModelState.IsValid)
+      {
+        return View(recipe);
+      }
       _db.Recipes.Add(recipe);
       _db.SaveChanges();
       return RedirectToAction("Index");
