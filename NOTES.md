@@ -18,3 +18,9 @@ Views/Recipes/Create.cshtml
 
   <!-- <h4>@Html.LabelFor(model => model.Rating)</h4>
     @Html.TextBoxFor(model => model.Rating, new { type = "number" }) -->
+
+
+
+10/18
+
+left with "functional" site. No link to /Role exists, but you can manually type it in. 
