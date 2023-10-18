@@ -1,0 +1,32 @@
+@{
+  Layout = "_Layout";
+}
+
+@using RecipeBox.Models
+@model RecipeBox.Models.Category
+
+<p><strong>@Html.DisplayNameFor(targetCategory => targetCategory.Name)</strong>: @Html.DisplayFor(targetCategory => targetCategory.Name)</p>
+
+<h5>Recipes in This Category</h5>
+<hr />
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This category does not have any recipes associated with it.</p>
+}
+else
+{
+  <ul>
+    @foreach(CategoryRecipe joinEntry in Model.JoinEntities)
+    {
+      <li>@joinEntry.Recipe.Title</li>
+      @using(Html.BeginForm("DeleteJoin", "Categories"))
+      {
+        @Html.Hidden("joinId", @joinEntry.CategoryRecipeId)
+        <input type="submit" value="Delete"/>
+      }
+    }
+  </ul>
+}
+<p>@Html.ActionLink("Add Recipe to Category", "AddRecipe", new { id = Model.CategoryId })</p>
+<p>@Html.ActionLink("Edit Category", "Edit", new { id = Model.CategoryId })</p>
+<p>@Html.ActionLink("Delete Category", "Delete", new { id = Model.CategoryId })</p>

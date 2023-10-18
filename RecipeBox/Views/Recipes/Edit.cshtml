@@ -1,0 +1,31 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBox.Models.Recipe;
+
+<h4>Edit a recipe </h4>
+
+
+<p>Edit this recipe's info: @Html.DisplayFor(recipe => recipe.Title)</p>
+<hr/>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(pauliscool => pauliscool.RecipeId)
+
+  <h3>@Html.LabelFor(recipe => recipe.Title)</h3>
+  <h3>@Html.EditorFor(recipe => recipe.Title)</h3>
+  <br>
+  <h3>@Html.LabelFor(recipe => recipe.Ingredients)</h3>
+  <h3>@Html.EditorFor(recipe => recipe.Ingredients)</h3>
+  <br>
+  <h3>@Html.LabelFor(recipe => recipe.Instructions)</h3>
+  <h3>@Html.EditorFor(recipe => recipe.Instructions)</h3>
+  <br>
+  <h3>@Html.LabelFor(recipe => recipe.Rating)</h3>
+  <h3>@Html.EditorFor(recipe => recipe.Rating)</h3>
+  <br>
+  <input type="submit" value="Edit Changes" class="btn btn-primary" />
+  <hr/>
+}

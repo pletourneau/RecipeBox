@@ -2,24 +2,22 @@
   Layout = "_Layout";
 }
 
+<!-- @using System.Linq; -->
 @using RecipeBox.Models;
 @model List<RecipeBox.Models.Recipe>;
 
-<h1>Recipes for @User.Identity.Name</h1>
-
+<!-- <h1>Recipes for @User.Identity.Name</h1> -->
 @if(Model.Count == 0)
 {
   <h3>No recipes have been added yet.</h3>
 }
 else
 {
-  <ul>
-    @foreach(Recipe recipe in Model)
-    {
-      <li>@Html.ActionLink($"{recipe.Title}", "Details", new { id = recipe.RecipeId})</li>
-    }
-  </ul>
+  @foreach(Recipe recipe in Model)
+  {
+    <li>@Html.ActionLink($"{recipe.Title}", "Details", new { id = recipe.RecipeId})</li>
+  }
 }
+<hr/>
+@Html.ActionLink("Create Recipe", "Create")
 
-<p>@Html.ActionLink("Add new recipe", "Create")</p>
-<p>@Html.ActionLink("Home", "Index", "Home")</p>

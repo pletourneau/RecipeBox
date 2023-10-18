@@ -1,0 +1,44 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBox.Models.Recipe;
+@using System;
+
+<div class="container">
+  <!-- <p>@Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+  <p>@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+  <p>@Html.ValidationMessageFor(model => model.Ingredients, "", new { @class = "text-danger", @style = "font-weight: 600"})</p>
+  <p>@Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger", @style = "font-weight: 600" })</p> -->
+  @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:", new { @class = "text-danger", @style = "font-weight: 600;"})
+  @using (Html.BeginForm())
+  {
+    <h4>@Html.LabelFor(model => model.Title)</h4>
+    @Html.TextBoxFor(model => model.Title)
+    <br/>
+    <h4>@Html.LabelFor(model => model.Ingredients)</h4>
+    @Html.TextBoxFor(model => model.Ingredients)
+    <br/>
+    <h4>@Html.LabelFor(model => model.Instructions)</h4>
+    @Html.TextBoxFor(model => model.Instructions)
+    <br/>
+  
+    <h4>Recipe Rating</h4>
+    @Html.RadioButtonFor(model => model.Rating, 1)<b> 1</b>
+    @Html.RadioButtonFor(model => model.Rating, 2)<b> 2</b>
+    @Html.RadioButtonFor(model => model.Rating, 3)<b> 3</b>
+    @Html.RadioButtonFor(model => model.Rating, 4)<b> 4</b>
+    @Html.RadioButtonFor(model => model.Rating, 5)<b> 5</b>
+    <br />
+    
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  }
+</div>
+<hr />
+<br/>
+<div class="container">
+<h3>Links</h3>
+  <h5>@Html.ActionLink("Back to Recipes", "Index")</h5>
+</div>
+
+
