@@ -21,7 +21,7 @@ namespace RecipeBox.Controllers
       ViewBag.PageTitle = "List of Categories";
       return View(_db.Categories.ToList());
     }
-
+  
     public ActionResult Create()
     {
       ViewBag.PageTitle = "Add a new category guey";
@@ -31,9 +31,17 @@ namespace RecipeBox.Controllers
     [HttpPost]
     public ActionResult Create(Category category)
     {
-      _db.Categories.Add(category);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+      if (!ModelState.IsValid)
+      {
+        ViewBag.PageTitle = "Add a new category guey";
+        return View(category);
+      }
+      else
+      {
+        _db.Categories.Add(category);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+      }
     }
 
     public ActionResult Details(int id)

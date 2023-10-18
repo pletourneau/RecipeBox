@@ -37,12 +37,19 @@ namespace RecipeBox.Controllers
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
 
       List<Recipe> userRecipes = _db.Recipes
-                                        .Where(entry => entry.User.Id == currentUser.Id)
-                                        // .Include(recipe.Category)
-                                        .ToList(); 
+                                            .Where(entry => entry.User.Id == currentUser.Id)
+                                            .Include(entry => entry.JoinEntities)
+                                            .ThenInclude(join => join.Category)
+                                            .ToList(); 
       return View(userRecipes);
     }
     
+    public ActionResult Create()
+    {
+      ViewBag.PageTitle = "Add a new receta guey";
+      return View();
+    }
+
     [HttpPost]
     public async Task<ActionResult> Create(Recipe recipe, int CategoryId)
     {
@@ -61,11 +68,6 @@ namespace RecipeBox.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
       }
-    }
-    public ActionResult Create()
-    {
-      ViewBag.PageTitle = "Add a new receta guey";
-      return View();
     }
 
     // [HttpPost]
