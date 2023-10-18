@@ -16,9 +16,9 @@
   }
 </ul>
 
-@if (User.Identity.IsAuthenticated)
-{
-  <h4>Recipes for @User.Identity.Name</h4>
+<!-- if (User.Identity.IsAuthenticated) -->
+
+  <h4>Recipes</h4>
   @if (Model["recipes"].Length == 0)
   {
     <p>No recipes have been added yet!</p>
@@ -29,12 +29,12 @@
       <li>@Html.ActionLink(@recipe.Title, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
     }
   </ul>
-}
-else
+
+<!-- else
 {
   <h4>Recipes</h4>
   <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your recipes.</p>
-}
+} -->
 
 <hr/>
 

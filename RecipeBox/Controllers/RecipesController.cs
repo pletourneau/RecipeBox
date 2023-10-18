@@ -23,26 +23,27 @@ namespace RecipeBox.Controllers
       _db = db;
     }
 
-    // public ActionResult Index()
-    // { 
-    //   ViewBag.PageTitle = "List of Recipes";
-    //   List<Recipe> model = _db.Recipes.ToList();
-    //   return View(model);
-    // }
-
-    public async Task<ActionResult> Index()
-    {
+    [AllowAnonymous]
+    public ActionResult Index()
+    { 
       ViewBag.PageTitle = "List of Recipes";
-      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-
-      List<Recipe> userRecipes = _db.Recipes
-                                            .Where(entry => entry.User.Id == currentUser.Id)
-                                            .Include(entry => entry.JoinEntities)
-                                            .ThenInclude(join => join.Category)
-                                            .ToList(); 
-      return View(userRecipes);
+      List<Recipe> model = _db.Recipes.ToList();
+      return View(model);
     }
+
+    // public async Task<ActionResult> Index()
+    // {
+    //   ViewBag.PageTitle = "List of Recipes";
+    //   string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    //   ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+
+    //   List<Recipe> userRecipes = _db.Recipes
+    //                                         .Where(entry => entry.User.Id == currentUser.Id)
+    //                                         // .Include(entry => entry.JoinEntities)
+    //                                         // .ThenInclude(join => join.Category)
+    //                                         .ToList(); 
+    //   return View(userRecipes);
+    // }
     
     public ActionResult Create()
     {
@@ -50,38 +51,39 @@ namespace RecipeBox.Controllers
       return View();
     }
 
-    [HttpPost]
-    public async Task<ActionResult> Create(Recipe recipe, int CategoryId)
-    {
-      if (!ModelState.IsValid)
-      {
-        ViewBag.PageTitle = "Add a new receta guey";
-        ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
-        return View(recipe);
-      }
-      else
-      {
-        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-        recipe.User = currentUser;
-        _db.Recipes.Add(recipe);
-        _db.SaveChanges();
-        return RedirectToAction("Index");
-      }
-    }
-
     // [HttpPost]
-    // public ActionResult Create(Recipe recipe)
+    // public async Task<ActionResult> Create(Recipe recipe, int CategoryId)
     // {
     //   if (!ModelState.IsValid)
     //   {
+    //     ViewBag.PageTitle = "Add a new receta guey";
+    //     ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
     //     return View(recipe);
     //   }
-    //   _db.Recipes.Add(recipe);
-    //   _db.SaveChanges();
-    //   return RedirectToAction("Index");
+    //   else
+    //   {
+    //     string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    //     ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+    //     recipe.User = currentUser;
+    //     _db.Recipes.Add(recipe);
+    //     _db.SaveChanges();
+    //     return RedirectToAction("Index");
+    //   }
     // }
+    
+    [HttpPost]
+    public ActionResult Create(Recipe recipe)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(recipe);
+      }
+      _db.Recipes.Add(recipe);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
 
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       ViewBag.PageTitle = "Recipe Details";
