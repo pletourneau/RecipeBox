@@ -21,7 +21,7 @@ namespace RecipeBox.Controllers
 
     public ActionResult Index()
     {
-      // ViewBag.PageTitle = "Manage Account";
+      ViewBag.Title = "Manage Account";
       return View();
     }
 

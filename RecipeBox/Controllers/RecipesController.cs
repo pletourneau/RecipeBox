@@ -26,7 +26,7 @@ namespace RecipeBox.Controllers
     [AllowAnonymous]
     public ActionResult Index()
     { 
-      ViewBag.PageTitle = "List of Recipes";
+      ViewBag.Title = "List of Recipes";
       List<Recipe> model = _db.Recipes.ToList();
       return View(model);
     }
@@ -47,46 +47,46 @@ namespace RecipeBox.Controllers
     
     public ActionResult Create()
     {
-      ViewBag.PageTitle = "Add a new receta guey";
+      ViewBag.Title = "Add a new receta guey";
       return View();
     }
 
-    // [HttpPost]
-    // public async Task<ActionResult> Create(Recipe recipe, int CategoryId)
-    // {
-    //   if (!ModelState.IsValid)
-    //   {
-    //     ViewBag.PageTitle = "Add a new receta guey";
-    //     ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
-    //     return View(recipe);
-    //   }
-    //   else
-    //   {
-    //     string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    //     ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-    //     recipe.User = currentUser;
-    //     _db.Recipes.Add(recipe);
-    //     _db.SaveChanges();
-    //     return RedirectToAction("Index");
-    //   }
-    // }
-    
     [HttpPost]
-    public ActionResult Create(Recipe recipe)
+    public async Task<ActionResult> Create(Recipe recipe, int CategoryId)
     {
       if (!ModelState.IsValid)
       {
+        ViewBag.Title = "Add a new receta guey";
+        ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
         return View(recipe);
       }
-      _db.Recipes.Add(recipe);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+      else
+      {
+        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+        recipe.User = currentUser;
+        _db.Recipes.Add(recipe);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+      }
     }
+    
+    // [HttpPost]
+    // public ActionResult Create(Recipe recipe)
+    // {
+    //   if (!ModelState.IsValid)
+    //   {
+    //     return View(recipe);
+    //   }
+    //   _db.Recipes.Add(recipe);
+    //   _db.SaveChanges();
+    //   return RedirectToAction("Index");
+    // }
 
     [AllowAnonymous]
     public ActionResult Details(int id)
     {
-      ViewBag.PageTitle = "Recipe Details";
+      ViewBag.Title = "Recipe Details";
       Recipe targetRecipe = _db.Recipes.Include(entry => entry.JoinEntities)
                                        .ThenInclude(join => join.Category)
                                        .FirstOrDefault(entry => entry.RecipeId == id);
@@ -95,7 +95,7 @@ namespace RecipeBox.Controllers
 
     public ActionResult Edit(int id)
     {
-      ViewBag.PageTitle = "Edit Recipe";
+      ViewBag.Title = "Edit Recipe";
       Recipe thisRecipe = _db.Recipes.FirstOrDefault(recipe => recipe.RecipeId == id);
       return View(thisRecipe);
     }
@@ -110,7 +110,7 @@ namespace RecipeBox.Controllers
 
     public ActionResult Delete(int id)
     {
-      ViewBag.PageTitle = "Delete Recipe";
+      ViewBag.Title = "Delete Recipe";
       Recipe targetRecipe = _db.Recipes.FirstOrDefault(entry => entry.RecipeId == id);
       return View(targetRecipe);
     }

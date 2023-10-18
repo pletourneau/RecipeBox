@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RecipeBox.Controllers
 {
+  [Authorize]
   public class CategoriesController : Controller
   {
     private readonly RecipeBoxContext _db;
@@ -16,15 +18,16 @@ namespace RecipeBox.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
     {
-      ViewBag.PageTitle = "List of Categories";
+      ViewBag.Title = "List of Categories";
       return View(_db.Categories.ToList());
     }
   
     public ActionResult Create()
     {
-      ViewBag.PageTitle = "Add a new category guey";
+      ViewBag.Title = "Add a new category guey";
       return View();
     }
 
@@ -33,7 +36,7 @@ namespace RecipeBox.Controllers
     {
       if (!ModelState.IsValid)
       {
-        ViewBag.PageTitle = "Add a new category guey";
+        ViewBag.Title = "Add a new category guey";
         return View(category);
       }
       else
@@ -44,9 +47,10 @@ namespace RecipeBox.Controllers
       }
     }
 
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
-      ViewBag.PageTitle = "Category Details";
+      ViewBag.Title = "Category Details";
       Category targetCategory = _db.Categories.Include(entry => entry.JoinEntities)
                                               .ThenInclude(join => join.Recipe)
                                               .FirstOrDefault(entry => entry.CategoryId == id);
@@ -55,7 +59,7 @@ namespace RecipeBox.Controllers
 
     public ActionResult Edit(int id)
     {
-      ViewBag.PageTitle = "Edit Category";
+      ViewBag.Title = "Edit Category";
       Category targetCategory = _db.Categories.FirstOrDefault(entry => entry.CategoryId == id); 
       return View(targetCategory);     
     }
@@ -70,7 +74,7 @@ namespace RecipeBox.Controllers
 
     public ActionResult Delete(int id)
     {
-      ViewBag.PageTitle = "Delete Category";
+      ViewBag.Title = "Delete Category";
       Category targetCategory = _db.Categories.FirstOrDefault(entry => entry.CategoryId == id);
       return View(targetCategory);            
     }
@@ -86,7 +90,7 @@ namespace RecipeBox.Controllers
     
     public ActionResult AddRecipe(int id)
     {
-      ViewBag.PageTitle = "Add Recipe to this Category";
+      ViewBag.Title = "Add Recipe to this Category";
       Category thisCategory = _db.Categories.FirstOrDefault(model => model.CategoryId == id);
       ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Title");
       return View(thisCategory);
