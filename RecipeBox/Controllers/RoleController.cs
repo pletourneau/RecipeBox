@@ -5,6 +5,7 @@ using RecipeBox.Models;
 using Identity.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace RecipeBox.Controllers 
 {
@@ -47,10 +48,24 @@ namespace RecipeBox.Controllers
       IdentityRole role = await roleManager.FindByIdAsync(id);
       List<ApplicationUser> members = new List<ApplicationUser>();
       List<ApplicationUser> nonMembers = new List<ApplicationUser>();
-      foreach(ApplicationUser user in userManager.Users)
+      List<ApplicationUser> users = await userManager.Users.ToListAsync();
+
+      foreach(ApplicationUser user in users)
+      //what about line 50? (Paul)
+      // I dont even know how he came up with this (Jon)
+      //put him in the river... if he floats he is a witch/warlock (Paul)
+      // totally sorcery. Saw all the evidence I needed! (Jon)
       {
-        var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
-        list.Add(user);
+        if(await userManager.IsInRoleAsync(user, role.Name))
+        {
+          members.Add(user);
+        }
+        else
+        {
+          nonMembers.Add(user);
+        }
+        // var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+        // list.Add(user);
       }
       return View(new RoleEdit
       {

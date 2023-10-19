@@ -22,7 +22,7 @@ namespace RecipeBox
                           )
                         )
                       );
-      
+
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<RecipeBoxContext>()
                 .AddDefaultTokenProviders();
