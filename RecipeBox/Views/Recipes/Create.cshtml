@@ -10,7 +10,7 @@
   <p>@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
   <p>@Html.ValidationMessageFor(model => model.Ingredients, "", new { @class = "text-danger", @style = "font-weight: 600"})</p>
   <p>@Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger", @style = "font-weight: 600" })</p> -->
-  @Html.ValidationSummary(true, "Please fix the following error(s) and then resubmit the form:", new { @class = "text-danger", @style = "font-weight: 600;"})
+  @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:", new { @class = "text-danger", @style = "font-weight: 600;"})
   @using (Html.BeginForm())
   {
     <h4>@Html.LabelFor(model => model.Title)</h4>

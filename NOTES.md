@@ -19,16 +19,8 @@ Views/Recipes/Create.cshtml
   <!-- <h4>@Html.LabelFor(model => model.Rating)</h4>
     @Html.TextBoxFor(model => model.Rating, new { type = "number" }) -->
 
+
+
 10/18
 
-left with "functional" site. No link to /Role exists, but you can manually type it in.
-
-Removed this from Index.cshtml, table, 3rd column
-
-<td i-role="@role.Id"></td>
-
-Views/Role/Index.cshtml
-Removed this
-@{
-ViewData["Title"] = "ROLES";
-}
+left with "functional" site. No link to /Role exists, but you can manually type it in. 
