@@ -5,6 +5,7 @@
 @model RecipeBox.Models.Category;
 @using System;
 
+@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger"})
 @using (Html.BeginForm())
 {
   <h4>@Html.LabelFor(model => model.Name)</h4>

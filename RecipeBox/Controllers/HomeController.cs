@@ -20,22 +20,37 @@ namespace RecipeBox.Controllers
     }
 
     [HttpGet("/")]
-    public async Task<ActionResult> Index()
+    public ActionResult Index()
     {
-      ViewBag.PageTitle = "Welcome to the Recipe Box!";
+      ViewBag.Title = "Welcome to the Recipe Box!";
       Category[] cats = _db.Categories.ToArray();
       Dictionary<string,object[]> model = new Dictionary<string, object[]>();
       model.Add("categories", cats);
-      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      if (currentUser != null)
-      {
-        Recipe[] recipes = _db.Recipes
-                              .Where(entry => entry.User.Id == currentUser.Id)
-                              .ToArray();
-        model.Add("recipes", recipes);
-      }
+      Recipe[] recipes = _db.Recipes.ToArray();
+      model.Add("recipes", recipes);
+   
       return View(model);
     }
+  
   }
 }
+  
+
+// [HttpGet("/")]
+//     public async Task<ActionResult> Index()
+//     {
+//       ViewBag.PageTitle = "Welcome to the Recipe Box!";
+//       Category[] cats = _db.Categories.ToArray();
+//       Dictionary<string,object[]> model = new Dictionary<string, object[]>();
+//       model.Add("categories", cats);
+//       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+//       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+//       if (currentUser != null)
+//       {
+//         Recipe[] recipes = _db.Recipes
+//                               .Where(entry => entry.User.Id == currentUser.Id)
+//                               .ToArray();
+//         model.Add("recipes", recipes);
+//       }
+//       return View(model);
+//     }

@@ -26,6 +26,7 @@ namespace RecipeBox
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<RecipeBoxContext>()
                 .AddDefaultTokenProviders();
+                // .AddRoles<IdentityRole>();
 
       
       builder.Services.Configure<IdentityOptions>(options =>
