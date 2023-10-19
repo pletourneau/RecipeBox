@@ -19,7 +19,11 @@ namespace RecipeBox.Controllers
       userManager = userMgr;
     }
 
-    public ViewResult Index() => View(roleManager.Roles);
+    public ViewResult Index()
+    {
+      ViewBag.Title = "All Roles";
+      return View(roleManager.Roles);
+    } 
 
     private void Errors(IdentityResult result)
     {
@@ -27,7 +31,11 @@ namespace RecipeBox.Controllers
         ModelState.AddModelError("", error.Description);
     }
 
-    public IActionResult Create() => View();
+    public IActionResult Create()
+    {
+      ViewBag.Title = "Create Role";
+      return View();
+    }
 
     [HttpPost]
     public async Task<IActionResult> Create([Required] string name)
@@ -38,23 +46,23 @@ namespace RecipeBox.Controllers
         if (result.Succeeded)
           return RedirectToAction("Index");
         else  
+        {
           Errors(result);  
+        }
       }
+      ViewBag.Title = "Create Role";
       return View(name);
     }
 
     public async Task<IActionResult> Update(string id)
     {
+      ViewBag.Title = "Update Roles for Accounts";
       IdentityRole role = await roleManager.FindByIdAsync(id);
       List<ApplicationUser> members = new List<ApplicationUser>();
       List<ApplicationUser> nonMembers = new List<ApplicationUser>();
       List<ApplicationUser> users = await userManager.Users.ToListAsync();
 
       foreach(ApplicationUser user in users)
-      //what about line 50? (Paul)
-      // I dont even know how he came up with this (Jon)
-      //put him in the river... if he floats he is a witch/warlock (Paul)
-      // totally sorcery. Saw all the evidence I needed! (Jon)
       {
         if(await userManager.IsInRoleAsync(user, role.Name))
         {

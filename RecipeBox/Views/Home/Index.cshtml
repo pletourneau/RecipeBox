@@ -4,31 +4,39 @@
 
 @using RecipeBox.Models;
 
-<h4>Categories</h4>
-@if (Model["categories"].Length == 0)
-{
-  <p>No categories have been added yet!</p>
-} 
-<ul>
-  @foreach (Category cat in Model["categories"])
-  {
-    <li>@Html.ActionLink(@cat.Name, "Details", "Categories", new { id = @cat.CategoryId})</li>
-  }
-</ul>
+<div class="row">
+  <div class="col-6">
+    <h4>Categories</h4>
+    @if (Model["categories"].Length == 0)
+    {
+      <p>No categories have been added yet!</p>
+    } 
+    <ul>
+    @foreach (Category cat in Model["categories"])
+    {
+      <li>@Html.ActionLink(@cat.Name, "Details", "Categories", new { id = @cat.CategoryId})</li>
+    }
+  </ul>
+  </div>
+  <div class="col-6">
+    <h4>Recipes</h4>
+    @if (Model["recipes"].Length == 0)
+    {
+      <p>No recipes have been added yet!</p>
+    } 
+    <ul>
+      @foreach (Recipe recipe in Model["recipes"])
+      {
+        <li>@Html.ActionLink(@recipe.Title, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
+      }
+    </ul>
+  </div>
+</div>
+
 
 <!-- if (User.Identity.IsAuthenticated) -->
 
-  <h4>Recipes</h4>
-  @if (Model["recipes"].Length == 0)
-  {
-    <p>No recipes have been added yet!</p>
-  } 
-  <ul>
-    @foreach (Recipe recipe in Model["recipes"])
-    {
-      <li>@Html.ActionLink(@recipe.Title, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
-    }
-  </ul>
+  
 
 <!-- else
 {
