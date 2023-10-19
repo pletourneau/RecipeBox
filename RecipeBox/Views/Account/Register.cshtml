@@ -5,9 +5,6 @@
 @using RecipeBox.ViewModels
 @model RegisterViewModel
 
-<h2>Register a new user</h2>
-<hr/>
-
 @if(!ViewData.ModelState.IsValid)
 {
   @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:")
