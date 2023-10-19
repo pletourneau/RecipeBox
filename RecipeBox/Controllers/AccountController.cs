@@ -27,7 +27,6 @@ namespace RecipeBox.Controllers
 
     public IActionResult Register()
     {
-      ViewBag.Title = "Create a New Account";
       return View();
     }
 
@@ -59,7 +58,6 @@ namespace RecipeBox.Controllers
 
     public ActionResult Login()
     {
-      ViewBag.Title = "Log in";
       return View();
     }
 
@@ -68,7 +66,6 @@ namespace RecipeBox.Controllers
     {
       if (!ModelState.IsValid)
       {
-        ViewBag.Title = "Log in";
         return View(model);
       }
       else 
